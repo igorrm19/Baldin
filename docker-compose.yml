@@ -3,16 +3,19 @@ services:
   backend:
     build:
       context: ./backend
+    command: uvicorn src.main:app --host 0.0.0.0 --port 8000 --reload
     ports:
       - "8000:8000"
     volumes:
       - ./backend:/app
+    env_file:
+      - .env
     environment:
-      - DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
+      - POSTGRES_HOST=db
     depends_on:
       db:
-        condition: service_healthy  # ✅ Aguarda health check
-    restart: unless-stopped  # ✅ Reinicia automaticamente em caso de falha
+        condition: service_healthy  
+    restart: unless-stopped  
     networks:
       - baldin-network
 
@@ -20,6 +23,8 @@ services:
     image: postgres:15-alpine
     volumes:
       - postgres_data:/var/lib/postgresql/data/
+    env_file:
+      - .env
     environment:
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
@@ -27,7 +32,7 @@ services:
     ports:
       - "5433:5432"
     restart: unless-stopped
-    healthcheck:  # ✅ Health check do PostgreSQL
+    healthcheck:  
       test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
       interval: 5s
       timeout: 3s
@@ -39,6 +44,6 @@ services:
 volumes:
   postgres_data:
 
-networks:  # Rede isolada
+networks:  
   baldin-network:
     driver: bridge
