@@ -36,6 +36,7 @@ export default function CadastroPage() {
         
         {/* BOTÃO FLUTUANTE (SOL / LUA) */}
         <button 
+        type="button"
           onClick={() => setTemaEscuro(!temaEscuro)}
           className="absolute top-5 right-5 p-3 rounded-full shadow-md hover:scale-110 transition-transform bg-white dark:bg-zinc-800 z-50"
         >
@@ -161,4 +162,5 @@ export default function CadastroPage() {
       </div>
     </div>
   );
-}
+} 
+
