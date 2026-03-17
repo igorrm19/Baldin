@@ -7,10 +7,9 @@ export function useRegisterForm() {
         resolver: zodResolver(cadastroSchema),
     });
 
-    function aoSalvar(data: CadastroForm) {
-        console.log(data);
-        alert("Bem-vindo à Baldin Tech, " + data.nome);
-    }
+    const aoSalvar = (data: CadastroForm) => {
+  console.log("Dados recebidos:", data);
+};
 
     return {
         ...form,
