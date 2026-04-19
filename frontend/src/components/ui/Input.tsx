@@ -1,14 +1,14 @@
 import { LucideIcon } from "lucide-react";
 import { UseFormRegisterReturn } from "react-hook-form";
 
-interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+interface InputProps<T extends string = string> extends React.InputHTMLAttributes<HTMLInputElement> {
   label: string;
   icon: LucideIcon;
   error?: string;
-  registration: UseFormRegisterReturn;
+  registration: UseFormRegisterReturn<T>;
 }
 
-export function Input({ label, icon: Icon, error, registration, ...props }: InputProps) {
+export function Input<T extends string = string>({ label, icon: Icon, error, registration, ...props }: InputProps<T>) {
   return (
     <div className="space-y-2">
       <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-400">

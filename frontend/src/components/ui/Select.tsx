@@ -1,15 +1,15 @@
 import { LucideIcon } from "lucide-react";
 import { UseFormRegisterReturn } from "react-hook-form";
 
-interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
+interface SelectProps<T extends string = string> extends React.SelectHTMLAttributes<HTMLSelectElement> {
     label: string;
     icon: LucideIcon;
     error?: string;
-    registration: UseFormRegisterReturn;
+    registration: UseFormRegisterReturn<T>;
     children: React.ReactNode;
 }
 
-export function Select({ label, icon: Icon, error, registration, children, ...props }: SelectProps) {
+export function Select<T extends string = string>({ label, icon: Icon, error, registration, children, ...props }: SelectProps<T>) {
     return (
         <div>
             <label className="block text-sm font-medium mb-2 text-zinc-700 dark:text-zinc-400">
